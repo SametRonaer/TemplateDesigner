@@ -1,0 +1,11 @@
+.CanvasComponent{
+    position: absolute;
+    height: 700px;
+    width: 322px;
+    top: 12%;
+    left: 30%;
+    background-color: lightcoral;
+    display: inline-block;
+    border-radius: 10px;
+}
+
