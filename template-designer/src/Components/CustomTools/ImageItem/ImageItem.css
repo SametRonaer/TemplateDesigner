@@ -1,0 +1,13 @@
+.ImageItemOutline{
+    height: 50px;
+    width: 50px;
+    background-color: lightgreen;
+    text-align: center;
+    border: 1px solid gray;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+.ImageItem{
+    opacity: 0;
+}

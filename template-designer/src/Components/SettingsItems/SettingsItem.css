@@ -1,0 +1,12 @@
+.SettingsItem{
+    height: 30px;
+    width: 30px;
+    background-color: palevioletred;
+}
+
+.ColorPickerField{
+    height: 30px;
+    width: 30px;
+   border: 0;
+    
+}

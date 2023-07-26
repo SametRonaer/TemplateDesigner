@@ -24,12 +24,17 @@ export default class CanvasFunctions{
         this.dispatch(elementsBarActions.setAllElements( objects));
         return objects;
     }
+    getActiveElement(){
+        const object =  this.appCanvas.getActiveObject();
+        console.log(object);
+        return object;
+    }
 
    getElementById(id){
         let objects = this.appCanvas.getObjects();
         let object;
         objects.forEach((o) => {
-            if(o.id == id){
+            if(o.id === id){
                 object = o;
             }
         });
@@ -49,9 +54,9 @@ export default class CanvasFunctions{
         });
         rect.id = `MyRect${Date.now()}`;
         rect.name = "Rect";
-        this.appCanvas.add(rect);
         console.log(rect);
-        this.getAllElements();
+       this.appCanvas.add(rect);
+       this.getAllElements();
     }
   
     addSolidCircle(color){
@@ -62,7 +67,7 @@ export default class CanvasFunctions{
             height : 50,
             fill : color ?? 'yellow'
         });
-        circle.id = `MyCircle${Date.now}`;
+        circle.id = `MyCircle${Date.now()}`;
         circle.name = "Circle";
         this.appCanvas.add(circle);
         console.log(circle);
@@ -70,16 +75,25 @@ export default class CanvasFunctions{
     }
     
     addText(text){
+        const innerCanvas = this.appCanvas;
         var myText = new fabric.Text(text, {
             underline: true,
             overline: true
         });
-        myText.id = `MyText${Date.now}`;
+
+        myText.id = `MyText${Date.now()}`;
         myText.name = "Text";
-        this.appCanvas.add(myText);
+        innerCanvas.add(myText);
         console.log(myText);
         this.getAllElements();
     }
+    
+    addImage(image){
+        this.appCanvas.add(image);
+        this.getAllElements();
+    }
+
+    
 
 
     // Set functions
@@ -92,10 +106,30 @@ export default class CanvasFunctions{
         //this.appCanvas.setActiveObject(selectedObj);
     }
 
+    renderAll(){
+        this.appCanvas.renderAll();
+    }
+
 
     setZIndex(id, index){
         //canvas.moveTo(rect, -2);
     }
+
+
+
+
+    //Save functions
+    saveAllCanvasAsPng(){
+        var dataURL = this.appCanvas.toDataURL({
+            format: "png",
+            left: 0,
+            top: 0,
+            width: this.appCanvas.width ,
+            height: this.appCanvas.height ,
+        });
+        window.open(this.appCanvas.toDataURL("png"));
+    }
+
 
 }
 
