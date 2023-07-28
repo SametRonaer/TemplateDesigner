@@ -1,4 +1,4 @@
-import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
+import CanvasFunctions from "../../../HelperFunctions/CanvasFunctions";
 import "./ElementTile.css";
 
 function ElementTile(props){

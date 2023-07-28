@@ -1,25 +1,37 @@
-import { useEffect } from "react";
-import ElementTile from "../ElementTile/ElementTile";
 import "./ElementsBar.css";
-import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
 import { useSelector } from "react-redux";
+import ElementsBarTopArea from "./ElementsBarTopArea/ElementsBarTopArea";
+import ElementTile from "./ElementTile/ElementTile";
+import { elementsList, jsonOutput } from "../../Constants/appConstants";
+import JsonOutputArea from "../JsonOutputArea/JsonOutputArea";
 
 function ElementsBar(props){
     const allElements = useSelector((state) => state.elementsBar.allElements);
+    const currentMode  = useSelector((state) => state.layout.currentElementsBarMode);
+    
     
     
     function getTiles(){
-        console.log("Here happen1");
      const tiles = allElements.map(e => <ElementTile element = {e} key= {e.id}/>);
-     console.log("Here happen");
-     console.log(allElements);
      return tiles;
     }
 
-    const elementTiles = getTiles();
+    let currentModeComponent;
+
+    
+    function setCurrentMode(){
+      if(currentMode === elementsList){
+        currentModeComponent = getTiles();
+      }else if(currentMode === jsonOutput){
+        currentModeComponent = <JsonOutputArea/>
+      }
+    }
+
+    setCurrentMode();
 
     return <div className="ElementsBar">
-      {elementTiles}
+      <ElementsBarTopArea/>
+      {currentModeComponent}
     </div>;
 }
 

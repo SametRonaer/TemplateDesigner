@@ -1,0 +1,10 @@
+.ElementsBarTopAreaButton{
+    height: 30px;
+    width: 30px;
+    background-color: yellow;
+    display: inline-block;
+    margin-left: 4px;
+    text-align: center;
+    padding-top: 4px;
+    box-sizing: border-box;
+}

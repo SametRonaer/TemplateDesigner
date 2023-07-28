@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { allElements, currentElement } from "../Constants/appConstants";
 
 
 const elementsBarSlice = createSlice(

@@ -41,6 +41,22 @@ function CanvasComponent(props){
         
         canvasFunctions  = new CanvasFunctions(canvas, dispatch);
         
+        canvas.on("object:scaling", function (e) {
+          var target = e.target;
+          if (!target || target.type !== 'rect') {
+              return;
+          }
+          var sX = target.scaleX;
+          var sY = target.scaleY;
+          let cord = target.getCoords();
+          console.log(cord);
+          target.width *= sX;
+          target.height *= sY;
+          target.scaleX = 1;
+          target.scaleY = 1;
+          target.dirty = true;
+      });
+
           canvas.on('object:moving', moveHandler);
           canvas.on('mouse:down', clickHandler);
           canvas.on('mouse:wheel', function(opt) {

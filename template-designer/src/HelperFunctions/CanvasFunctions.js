@@ -3,6 +3,12 @@ import { elementsBarActions } from "../store/elements-bar-store";
 
 
 
+fabric.Object.prototype.getZIndex = function() {
+    return this.canvas.getObjects().indexOf(this);
+}
+
+
+
 export default class CanvasFunctions{
     
     constructor(canvas, disp){
@@ -41,6 +47,7 @@ export default class CanvasFunctions{
         console.log(object);
         return object;
     }
+  
     
 // Add functions
 
@@ -114,6 +121,7 @@ export default class CanvasFunctions{
     setZIndex(id, index){
         //canvas.moveTo(rect, -2);
     }
+
 
 
 

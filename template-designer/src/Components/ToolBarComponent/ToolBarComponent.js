@@ -5,7 +5,7 @@ import "./ToolBarComponent.css";
 
 
 function ToolBarComponent(){
-    const [file, setFile] = useState("");
+   
     return <div className="ToolBarComponent">
         <ToolBarItem item = {rectangle}/>
         <ToolBarItem item = {solidRectangle}/>

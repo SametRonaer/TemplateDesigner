@@ -16,3 +16,8 @@ export const image = "image";
 export const alphaImage = "alphaImage";
 
 
+
+
+// ElementsBar Mode Constants
+export const elementsList = "elementsList";
+export const jsonOutput = "jsonOutput";
