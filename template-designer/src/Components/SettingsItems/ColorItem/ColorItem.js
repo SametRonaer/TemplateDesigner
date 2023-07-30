@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../SettingsItem.css";
 import CanvasFunctions from "../../../HelperFunctions/CanvasFunctions";
 
-function ColorItem(){
-
-    const[currentColor, setCurrentColor] = useState("");
+function ColorItem(props){
+    const currentElement = props.currentElement;
+    useEffect(()=> {setCurrentColor(currentElement.fill)}, [currentElement]);
+    const[currentColor, setCurrentColor] = useState(currentElement.fill);
     let functions;
     
     function updateColor(e){
@@ -12,10 +13,7 @@ function ColorItem(){
             functions = new CanvasFunctions();
         }
         setCurrentColor(e.target.value);
-       const activeElement =  functions.getActiveElement();
-       if(activeElement){
-        activeElement.set("fill", e.target.value);
-       }
+        currentElement.set("fill", e.target.value);
         functions.renderAll();
     }
 

@@ -6,8 +6,15 @@
     border: 1px solid gray;
     padding-top: 10px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .ImageItem{
     opacity: 0;
+}
+
+.ImageIcon{
+    position: absolute;
+    top: 10px;
+    left: 10px
 }

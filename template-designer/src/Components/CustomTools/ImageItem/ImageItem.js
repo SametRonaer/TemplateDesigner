@@ -1,9 +1,14 @@
 import "./ImageItem.css";
 import CanvasFunctions from "../../../HelperFunctions/CanvasFunctions";
 import { fabric } from "fabric";
+import { BsImage } from "react-icons/bs";
+
+
+    
 
 function ImageItem(){
-
+    
+    const imageIcon = <BsImage size={24} />
 
 function addImageToTheCanvas(e){
     const functions = new CanvasFunctions();

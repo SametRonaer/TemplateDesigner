@@ -7,6 +7,7 @@ const elementsBarSlice = createSlice(
     initialState: {
         currentElement: null,
         allElements: [],
+        lastRefreshTime: null,
     },
     reducers: {
         setCurrentElement(state, action) {
@@ -14,6 +15,9 @@ const elementsBarSlice = createSlice(
         },
         setAllElements(state, action) {
             state.allElements = action.payload;
+        },
+        setLastRefreshTime(state, action) {
+            state.lastRefreshTime = action.payload;
         },
     }
 }

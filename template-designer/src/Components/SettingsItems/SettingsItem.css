@@ -1,12 +1,30 @@
 .SettingsItem{
-    height: 30px;
-    width: 30px;
-    background-color: palevioletred;
+    margin-left: 1cqw;
+    margin-top: 10px;
+    position: relative;
+    height: 40px;
+    min-width: 40px;
+    display: inline-block;
+    background-color: blue;
 }
 
 .ColorPickerField{
+    position: absolute;
     height: 30px;
     width: 30px;
-   border: 0;
+    display: inline-block;
+}
+
+
+
+
+.DepthItem{
+    position: absolute;
+    right: 0 ;
+    top: 5px;
+    width: 30px;
+    height: 16px;
+    display: inline-block;
     
 }
+

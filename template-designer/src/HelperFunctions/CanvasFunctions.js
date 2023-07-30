@@ -62,7 +62,8 @@ export default class CanvasFunctions{
         rect.id = `MyRect${Date.now()}`;
         rect.name = "Rect";
         console.log(rect);
-       this.appCanvas.add(rect);
+        this.appCanvas.add(rect);
+        
        this.getAllElements();
     }
   
@@ -118,8 +119,9 @@ export default class CanvasFunctions{
     }
 
 
-    setZIndex(id, index){
-        //canvas.moveTo(rect, -2);
+    setZIndex(index){
+        const element = this.getActiveElement();
+        this.appCanvas.moveTo(element, index);
     }
 
 

@@ -1,14 +1,12 @@
-import { useState } from "react";
-import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
 import "./JsonOutputArea.css";
-import { elementsList } from "../../Constants/appConstants";
+import { useSelector } from "react-redux";
 
 function JsonOutputArea(){
-    const[output, setOutput] = useState("");
+    const allElements = useSelector((state) => state.elementsBar.allElements);
+    useSelector((state) => state.elementsBar.lastRefreshTime);
+   
 
     function getJsonOfElementsTree(){
-        const functions = new CanvasFunctions();
-        const allElements = functions.getAllElements();
         let currentOutput = "";
         let jsonElementList = [];
         for(let i = 0; i<allElements.length; i++){
@@ -20,6 +18,7 @@ function JsonOutputArea(){
                 width: allElements[i].width,
                 zIndex: allElements[i].getZIndex(),
                 color: allElements[i].fill,
+                imageUrl: "https://www.templatedesigner.com/attachments/ass233sdseq34"
             };
             jsonElementList.push(element);
         }
@@ -28,8 +27,10 @@ function JsonOutputArea(){
         // }
         currentOutput = addTemplateConfigToOutput(jsonElementList);
         currentOutput = formatOutput(currentOutput);
-        setOutput(currentOutput);
+       return currentOutput;
     }
+
+   const output = getJsonOfElementsTree();
 
     return <div className = "JsonOutputArea" onClick={getJsonOfElementsTree}>
        {output}

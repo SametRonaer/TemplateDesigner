@@ -3,6 +3,8 @@ import { fabric } from "fabric";
 import { useEffect, useState} from "react";
 import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
 import { useDispatch, useSelector } from "react-redux";
+import { elementsBarActions } from "../../store/elements-bar-store";
+import CanvasEventsManager from "../../HelperFunctions/CanvasEventsManager";
 
 
 function CanvasComponent(props){
@@ -11,34 +13,25 @@ function CanvasComponent(props){
       const dispatch = useDispatch();
       // const[refresh, setRefresh] = useState(null);
  
+    function setDispatch(action){
+     // dispatch(action);
+    }
+
+    function moveHandler(){
+      dispatch(elementsBarActions.setLastRefreshTime(Date.now()));
+    }
+
        let canvasFunctions ;
       // const canvas = canvasFunctions.appCanvas;
       
       var canvas;
-      var moveHandler = function (evt) {
-          // var movingObject = evt.target;
-          // console.log(movingObject);
-          // console.log(movingObject.get('left'), movingObject.get('top'));
-          // console.log(canvas.getObjects());
-        };
-
-        var clickHandler = function (evt){
-          // var movingObject = evt.target;
-          // console.log(movingObject);
-          //getAllElements(canvas);
-          //getElementById(canvas, "MyAwesomeId");
-         // addSolidRect(canvas);
-         //setRefresh(Date.now());
-         //canvasFunctions.getAllElements();
-         //canvasFunctions.addSolidRect();
-        
-        }
+     
         
         function drawShape(){
 
           canvas = new fabric.Canvas("canvas", { preserveObjectStacking: true });
           
-        
+        //  let evenstManager = new CanvasEventsManager(canvas, setDispatch);
         canvasFunctions  = new CanvasFunctions(canvas, dispatch);
         
         canvas.on("object:scaling", function (e) {
@@ -57,8 +50,8 @@ function CanvasComponent(props){
           target.dirty = true;
       });
 
-          canvas.on('object:moving', moveHandler);
-          canvas.on('mouse:down', clickHandler);
+         canvas.on('object:moving', moveHandler);
+          // canvas.on('mouse:down', clickHandler);
           canvas.on('mouse:wheel', function(opt) {
             var delta = opt.e.deltaY;
             var zoom = canvas.getZoom();
@@ -70,13 +63,30 @@ function CanvasComponent(props){
             opt.e.stopPropagation();
           });
         
-            
-          canvasFunctions.addSolidRect("blue");
-        //  canvasFunctions.getAllElements();
+     
+          canvas.on({
+            'selection:updated': setSelectedElement,
+            'selection:created': setSelectedElement
+          });
+          canvas.on({
+            'object:added': setAddedElement,
+          });
+          
+          function setSelectedElement(obj){
+            dispatch(elementsBarActions.setCurrentElement(obj.selected[0]));
+            console.log("Selection is");
+            console.log(obj);
+          }
+          function setAddedElement(obj){
+           dispatch(elementsBarActions.setCurrentElement(obj.target));
+            console.log("Selection is");
+            console.log(obj);
+          }
+
+          canvasFunctions.addSolidRect("#cd1d1d");
+     
              
       }
-// console.log("Refereshed");
-// console.log(refresh);
     return <div className="CanvasComponent"> 
        <canvas id="canvas" width="322" height="700"></canvas>
     </div>;
@@ -93,10 +103,3 @@ export default CanvasComponent;
 
 
 
-// function onClickHandler(e){
-//     console.log(e);
-//     var rect = e.target.getBoundingClientRect();
-//     var x = e.clientX - rect.left; //x position within the element.
-//     var y = e.clientY - rect.top;  //y position within the element.
-//     console.log("Left? : " + x + " ; Top? : " + y + ".");
-// }

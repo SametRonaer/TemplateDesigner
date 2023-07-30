@@ -28,7 +28,7 @@ function getItemFunction(){
           functions.addSolidCircle();
     }
     else if(props.item == solidRectangle){
-         functions.addSolidRect("blue");
+         functions.addSolidRect("#cd1d1d");
     }
     else if(props.item == rectangle){
         functions.saveAllCanvasAsPng();
