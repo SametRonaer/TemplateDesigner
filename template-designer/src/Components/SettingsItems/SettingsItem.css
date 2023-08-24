@@ -1,9 +1,9 @@
 .SettingsItem{
     margin-left: 1cqw;
     margin-top: 10px;
+    width: 40px;
     position: relative;
     height: 40px;
-    min-width: 40px;
     display: inline-block;
     background-color: blue;
 }
@@ -15,7 +15,24 @@
     display: inline-block;
 }
 
-
+.SettingsItem-Medium{
+    margin-left: 1cqw;
+    margin-top: 10px;
+    position: relative;
+    width: 60px;
+    height: 40px;
+    display: inline-block;
+    background-color: blue;
+}
+.SettingsItem-Large{
+    margin-left: 1cqw;
+    margin-top: 10px;
+    position: relative;
+    width: 200px;
+    height: 40px;
+    display: inline-block;
+    background-color: blue;
+}
 
 
 .DepthItem{
@@ -23,6 +40,26 @@
     right: 0 ;
     top: 5px;
     width: 30px;
+    height: 16px;
+    display: inline-block;
+    
+}
+.OpacityItem{
+    position: absolute;
+    right: 0 ;
+    top: 5px;
+    width: 50px;
+    height: 16px;
+    display: inline-block;
+    
+}
+
+
+.BorderWidthItem{
+    position: absolute;
+    right: 0 ;
+    top: 5px;
+    width: 50px;
     height: 16px;
     display: inline-block;
     

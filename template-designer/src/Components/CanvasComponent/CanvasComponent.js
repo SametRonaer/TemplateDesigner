@@ -4,14 +4,14 @@ import { useEffect, useState} from "react";
 import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { elementsBarActions } from "../../store/elements-bar-store";
-import CanvasEventsManager from "../../HelperFunctions/CanvasEventsManager";
+
 
 
 function CanvasComponent(props){
       useEffect(() => { drawShape()}, []);
  
       const dispatch = useDispatch();
-      // const[refresh, setRefresh] = useState(null);
+     
  
     function setDispatch(action){
      // dispatch(action);
@@ -20,48 +20,73 @@ function CanvasComponent(props){
     function moveHandler(){
       dispatch(elementsBarActions.setLastRefreshTime(Date.now()));
     }
-
-       let canvasFunctions ;
-      // const canvas = canvasFunctions.appCanvas;
-      
-      var canvas;
+       let canvasFunctions ; 
+       var canvas;
      
         
         function drawShape(){
-
           canvas = new fabric.Canvas("canvas", { preserveObjectStacking: true });
           
-        //  let evenstManager = new CanvasEventsManager(canvas, setDispatch);
+          
+        canvas.backgroundColor =  "#ffffffff";
         canvasFunctions  = new CanvasFunctions(canvas, dispatch);
-        
+        canvasFunctions.renderAll();
         canvas.on("object:scaling", function (e) {
+          dispatch(elementsBarActions.setLastRefreshTime(Date.now()));
           var target = e.target;
-          if (!target || target.type !== 'rect') {
-              return;
-          }
+          
+         if(!target.id.includes("Alpha")){
+          return;
+         }
           var sX = target.scaleX;
           var sY = target.scaleY;
-          let cord = target.getCoords();
-          console.log(cord);
-          target.width *= sX;
-          target.height *= sY;
+          target.set({
+            radius: target.radius * sX,
+            width : target.width * sX,
+            height : target.height * sY,
+
+          });
           target.scaleX = 1;
           target.scaleY = 1;
           target.dirty = true;
       });
 
+      window.addEventListener(
+        "keydown",
+        (event) => {
+          console.log(event);
+          if (event.defaultPrevented) {
+            return; // Should do nothing if the default action has been cancelled
+          }
+      
+          let handled = false;
+          // if (event.key === 'Backspace') {
+          //   canvasFunctions.removeActiveElement();
+          //   handled = true;
+          // }
+      
+          if (handled) {
+            // Suppress "double action" if event handled
+            event.preventDefault();
+          }
+        },
+        true,
+      );
+
+        
+
          canvas.on('object:moving', moveHandler);
           // canvas.on('mouse:down', clickHandler);
-          canvas.on('mouse:wheel', function(opt) {
-            var delta = opt.e.deltaY;
-            var zoom = canvas.getZoom();
-            zoom *= 0.999 ** delta;
-            if (zoom > 20) zoom = 20;
-            if (zoom < 0.01) zoom = 0.01;
-            canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
-            opt.e.preventDefault();
-            opt.e.stopPropagation();
-          });
+          // canvas.on('mouse:wheel', function(opt) {
+          //   var delta = opt.e.deltaY;
+          //   var zoom = canvas.getZoom();
+          //   zoom *= 0.999 ** delta;
+          //   if (zoom > 20) zoom = 20;
+          //   if (zoom < 0.01) zoom = 0.01;
+          //   canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+          //   opt.e.preventDefault();
+          //   opt.e.stopPropagation();
+          // });
         
      
           canvas.on({
@@ -83,12 +108,11 @@ function CanvasComponent(props){
             console.log(obj);
           }
 
-          canvasFunctions.addSolidRect("#cd1d1d");
-     
+       
              
       }
     return <div className="CanvasComponent"> 
-       <canvas id="canvas" width="322" height="700"></canvas>
+       <canvas id="canvas" width="351" height="760"></canvas>
     </div>;
 
   

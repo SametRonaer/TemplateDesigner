@@ -1,0 +1,26 @@
+.BorderWidthItemHolder{
+    margin-left: 1cqw;
+    margin-top: 10px;
+    position: relative;
+    width: 145px;
+    height: 40px;
+    display: inline-block;
+    background-color: rgba(0, 0, 255, 0);
+}
+
+.BorderWidthItemTitle{
+    position: absolute;
+    left: 0;
+    top: 5px;
+    height: 16px;
+    display: inline-block;  
+}
+
+.BorderWidthItem{
+    position: absolute;
+    right: 0 ;
+    top: 5px;
+    width: 30px;
+    height: 16px;
+    display: inline-block;  
+}

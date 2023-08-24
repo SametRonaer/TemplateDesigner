@@ -12,4 +12,5 @@
     box-sizing: border-box;
     text-align: start;
     white-space: pre-wrap;
+    overflow-y: scroll;
 }

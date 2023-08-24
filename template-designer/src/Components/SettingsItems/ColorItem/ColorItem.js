@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../SettingsItem.css";
+import "./ColorItem.css";
 import CanvasFunctions from "../../../HelperFunctions/CanvasFunctions";
 
 function ColorItem(props){
@@ -11,14 +11,14 @@ function ColorItem(props){
     function updateColor(e){
         if(!functions){
             functions = new CanvasFunctions();
+            functions.setBodyColor(e.target.value);
         }
         setCurrentColor(e.target.value);
-        currentElement.set("fill", e.target.value);
-        functions.renderAll();
     }
 
-    return <div className="SettingsItem">
-        <input className="ColorPickerField" value={currentColor} type="color" id="myColor" onInput={updateColor}   ></input>
+    return <div className="ColorItemHolder">
+        <div className="ColorItemTitle"> Color:</div>
+        <input className="ColorItem" value={currentColor} type="color" id="myColor" onInput={updateColor}   ></input>
     </div>;
 }
 

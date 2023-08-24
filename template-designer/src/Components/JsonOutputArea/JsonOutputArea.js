@@ -1,3 +1,4 @@
+import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
 import "./JsonOutputArea.css";
 import { useSelector } from "react-redux";
 
@@ -6,26 +7,92 @@ function JsonOutputArea(){
     useSelector((state) => state.elementsBar.lastRefreshTime);
    
 
+    function getImageJsonType(element){
+        const e = {
+            type: element.type,
+            id: element.id,
+            top: element.top,
+            angle: element.angle,
+            left: element.left,
+            strokeWidth: element.strokeWidth,
+            strokeColor: element.stroke,
+            height: element.height * element.scaleX,
+            width: element.width * element.scaleY,
+            zIndex: element.getZIndex(),
+            opacity: element.opacity,
+            imageUrl: "https://www.templatedesigner.com/attachments/ass233sdseq34"
+        };
+        return e;
+    }
+
+    function getGeometricJsonType(element){
+        const e = {
+            type: element.type,
+            id: element.id,
+            top: element.top,
+            angle: element.angle,
+            left: element.left,
+            height: element.height,
+            width: element.width,
+            radius: element.radius,
+            zIndex: element.getZIndex(),
+            color: element.fill,
+            strokeWidth: element.strokeWidth,
+            strokeColor: element.stroke,
+            opacity: element.opacity,
+        };
+        return e;
+    }
+
+    function getTextJsonType(element){
+        const e = {
+            type: element.type,
+            id: element.id,
+            text: element.text ,
+            fontSize: element.fontSize,
+            top: element.top,
+            angle: element.angle,
+            left: element.left,
+            height: element.height,
+            width: element.width,
+            zIndex: element.getZIndex(),
+            color: element.fill,
+            opacity: element.opacity,
+        };
+        return e;
+    }
+
+
+
+
+    // function getJsonOfElementsTree(){
+    //     let currentOutput = "";
+    //     let jsonElementList = [];
+    //     for(let i = 0; i<allElements.length; i++){
+    //         let element;
+    //         if(allElements[i].id.includes("Image")){
+    //          element = getImageJsonType(allElements[i]);
+    //         }else if(allElements[i].id.includes("Text")){
+    //             element = getTextJsonType(allElements[i], true);
+    //         }
+    //         else{
+    //          element = getGeometricJsonType(allElements[i]);
+    //         }
+           
+    //         jsonElementList.push(element);
+    //     }
+    //     // if(currentOutput){
+    //     //     currentOutput += ",";
+    //     // }
+    //     currentOutput = addTemplateConfigToOutput(jsonElementList);
+    //     currentOutput = formatOutput(currentOutput);
+    //    return currentOutput;
+    // }
     function getJsonOfElementsTree(){
-        let currentOutput = "";
-        let jsonElementList = [];
-        for(let i = 0; i<allElements.length; i++){
-            const element = {
-                type: allElements[i].type,
-                top: allElements[i].top,
-                left: allElements[i].left,
-                height: allElements[i].height,
-                width: allElements[i].width,
-                zIndex: allElements[i].getZIndex(),
-                color: allElements[i].fill,
-                imageUrl: "https://www.templatedesigner.com/attachments/ass233sdseq34"
-            };
-            jsonElementList.push(element);
-        }
-        // if(currentOutput){
-        //     currentOutput += ",";
-        // }
-        currentOutput = addTemplateConfigToOutput(jsonElementList);
+        var functions = new CanvasFunctions();
+        
+        let jsonElementList = functions.getLayersData(allElements);
+        let currentOutput = addTemplateConfigToOutput(jsonElementList);
         currentOutput = formatOutput(currentOutput);
        return currentOutput;
     }
@@ -46,9 +113,16 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 function addTemplateConfigToOutput(currentOutput){
+    const functions = new CanvasFunctions();
+    
    const templateConfig = {
     version: 0.01,
-    elements: currentOutput
+    backgroundColor: functions.appCanvas.backgroundColor,
+    canvasHeight: 760,
+    canvasWidth: 351,
+    layers: currentOutput[0],
+    images: currentOutput[1],
+    thumbnail: currentOutput[2],
    };
    return JSON.stringify(templateConfig);
 }

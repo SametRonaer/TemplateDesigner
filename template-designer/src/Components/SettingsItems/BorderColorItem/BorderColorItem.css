@@ -1,0 +1,26 @@
+.BorderColorItemHolder{
+    margin-left: 1cqw;
+    margin-top: 10px;
+    position: relative;
+    width: 135px;
+    height: 40px;
+    display: inline-block;
+    background-color: rgba(0, 0, 255, 0);
+}
+
+.BorderColorItemTitle{
+    position: absolute;
+    left: 0;
+    top: 5px;
+    height: 16px;
+    display: inline-block;  
+}
+
+.BorderColorItem{
+    position: absolute;
+    right: 0 ;
+    top: 0;
+    height: 30px;
+    width: 30px;
+    display: inline-block;  
+}

@@ -1,5 +1,9 @@
 .ElementTile{
     height: 30px;
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
     border-bottom: 1px gray solid;
+    text-align: start;
+    padding-left: 12px;
+    padding-top: 3px;
+    box-sizing: border-box;
 }

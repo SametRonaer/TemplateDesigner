@@ -1,7 +1,7 @@
 .ElementsBar{
     position: absolute;
     display: inline-block;
-    background-color: burlywood;
+    background-color: rgb(207, 206, 206);
     width: 350px;
     height: 100vh;
     right: 0;

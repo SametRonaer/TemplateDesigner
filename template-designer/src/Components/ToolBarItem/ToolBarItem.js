@@ -3,37 +3,46 @@ import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
 import ImageItem from "../CustomTools/ImageItem/ImageItem";
 import "./ToolBarItem.css";
 
+
+
 function ToolBarItem(props){
     
+    
+    
+
 const defaultItem = <div className="ToolBarItem" onClick={getItemFunction}>
-        {props.item}
+           {props.icon}
     </div>
     
 
 
- const currentItem =  props.item == image ? <ImageItem/>: defaultItem;
+ const currentItem =  props.item == image ? <ImageItem icon = {props.icon}/>: defaultItem;
     
     
     return currentItem;
 
 
 
-function getItemFunction(){
+function getItemFunction(e){
     const functions = new CanvasFunctions();
+    
+    
     if(props.item == image){
-        functions.addImage();
+     
     }else if(props.item == alphaImage){
-        
+        functions.addAlphaImage(e);
     }else if(props.item == solidCircle){
           functions.addSolidCircle();
-    }
-    else if(props.item == solidRectangle){
-         functions.addSolidRect("#cd1d1d");
-    }
-    else if(props.item == rectangle){
-        functions.saveAllCanvasAsPng();
-    }
-    else if(props.item == circle){
+         
+        }
+        else if(props.item == solidRectangle){
+            functions.addSolidRect("#cd1d1d");
+        }
+        else if(props.item == rectangle){
+            functions.addBorderedRect("#cd1d1d");
+        }
+        else if(props.item == circle){
+        functions.addBorderedCircle();
         
     }
     else if(props.item == text){

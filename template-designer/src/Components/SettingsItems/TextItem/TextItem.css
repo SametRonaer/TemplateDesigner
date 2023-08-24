@@ -1,0 +1,26 @@
+.TextItemHolder{
+    margin-left: 1cqw;
+    margin-top: 10px;
+    position: relative;
+    width: 130px;
+    height: 40px;
+    display: inline-block;
+    background-color: rgba(0, 0, 255, 0);
+}
+
+.TextItemTitle{
+    position: absolute;
+    left: 0;
+    top: 5px;
+    height: 16px;
+    display: inline-block;  
+}
+
+.TextItem{
+    position: absolute;
+    right: 0 ;
+    top: 5px;
+    width: 80px;
+    height: 16px;
+    display: inline-block;  
+}
