@@ -38,17 +38,17 @@ function CanvasComponent(props){
          if(!target.id.includes("Alpha")){
           return;
          }
-          var sX = target.scaleX;
-          var sY = target.scaleY;
-          target.set({
-            radius: target.radius * sX,
-            width : target.width * sX,
-            height : target.height * sY,
+          // var sX = target.scaleX;
+          // var sY = target.scaleY;
+          // target.set({
+          //   radius: target.radius * sX,
+          //   width : target.width * sX,
+          //   height : target.height * sY,
 
-          });
-          target.scaleX = 1;
-          target.scaleY = 1;
-          target.dirty = true;
+          // });
+          // target.scaleX = 1;
+          // target.scaleY = 1;
+          // target.dirty = true;
       });
 
       window.addEventListener(
@@ -60,10 +60,10 @@ function CanvasComponent(props){
           }
       
           let handled = false;
-          // if (event.key === 'Backspace') {
-          //   canvasFunctions.removeActiveElement();
-          //   handled = true;
-          // }
+          if (event.key === 'Backspace') {
+            canvasFunctions.removeActiveElement();
+            handled = true;
+          }
       
           if (handled) {
             // Suppress "double action" if event handled
@@ -99,13 +99,13 @@ function CanvasComponent(props){
           
           function setSelectedElement(obj){
             dispatch(elementsBarActions.setCurrentElement(obj.selected[0]));
-            console.log("Selection is");
-            console.log(obj);
+            // console.log("Selection is");
+            // console.log(obj);
           }
           function setAddedElement(obj){
            dispatch(elementsBarActions.setCurrentElement(obj.target));
-            console.log("Selection is");
-            console.log(obj);
+            // console.log("Selection is");
+            // console.log(obj);
           }
 
        

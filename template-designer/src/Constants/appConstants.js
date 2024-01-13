@@ -20,4 +20,5 @@ export const alphaImage = "alphaImage";
 
 // ElementsBar Mode Constants
 export const elementsList = "elementsList";
-export const jsonOutput = "jsonOutput";
+export const base64JsonOutput = "base64JsonOutput";
+export const parametricJsonOutput = "parametricJsonOutput";

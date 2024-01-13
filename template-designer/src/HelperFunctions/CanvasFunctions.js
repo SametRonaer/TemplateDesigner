@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { elementsBarActions } from "../store/elements-bar-store";
+import myImage from "../Assets/myImage.png";
 
 
 
@@ -26,13 +27,11 @@ export default class CanvasFunctions{
 
     getAllElements(){
         let objects =  this.appCanvas.getObjects();
-        console.log(objects);
         this.dispatch(elementsBarActions.setAllElements( objects));
         return objects;
     }
     getActiveElement(){
         const object =  this.appCanvas.getActiveObject();
-        console.log(object);
         return object;
     }
 
@@ -44,7 +43,6 @@ export default class CanvasFunctions{
                 object = o;
             }
         });
-        console.log(object);
         return object;
     }
   
@@ -53,7 +51,12 @@ export default class CanvasFunctions{
 
     
 
-    addSolidRect(color){
+    addSolidRect(color, previous){
+        if(previous){
+            this.appCanvas.add(previous);
+            this.getAllElements();
+            return;
+        }
         var rect = new fabric.Rect({
             top : 0,
             left : 0,
@@ -61,13 +64,19 @@ export default class CanvasFunctions{
             height : 50,
             fill : color ?? '#f4f5ff',
         });
-        rect.id = `MyRect${Date.now()}`;
+        
+        
+        rect.id = `SolidRect${Date.now()}`;
         rect.name = "Rect";
-        console.log(rect);
         this.appCanvas.add(rect);
        this.getAllElements();
     }
-    addBorderedRect(color){
+    addBorderedRect(color, previous){
+        if(previous){
+            this.appCanvas.add(previous);
+            this.getAllElements();
+            return;
+        }
         var rect = new fabric.Rect({
             top : 0,
             left : 0,
@@ -79,25 +88,33 @@ export default class CanvasFunctions{
         });
         rect.id = `BorderedRect${Date.now()}`;
         rect.name = "Rect";
-        console.log(rect);
         this.appCanvas.add(rect);
        this.getAllElements();
     }
   
-    addSolidCircle(color){
+    addSolidCircle(color, previous){
+        if(previous){
+            this.appCanvas.add(previous);
+            this.getAllElements();
+            return;
+        }
         var circle = new fabric.Circle({
             top : 0,
             left : 0,
             radius: 50,
             fill: '#f4f5ff',
         });
-        circle.id = `MyCircle${Date.now()}`;
+        circle.id = `SolidCircle${Date.now()}`;
         circle.name = "Circle";
         this.appCanvas.add(circle);
-        console.log(circle);
         this.getAllElements();
     }
-    addBorderedCircle(color){
+    addBorderedCircle(color,previous){
+        if(previous){
+            this.appCanvas.add(previous);
+            this.getAllElements();
+            return;
+        }
         var circle = new fabric.Circle({
             top : 0,
             left : 0,
@@ -109,11 +126,15 @@ export default class CanvasFunctions{
         circle.id = `BorderedCircle${Date.now()}`;
         circle.name = "Circle";
         this.appCanvas.add(circle);
-        console.log(circle);
         this.getAllElements();
     }
     
-    addText(text){
+    addText(text, previous){
+        if(previous){
+            this.appCanvas.add(previous);
+            this.getAllElements();
+            return;
+        }
         const innerCanvas = this.appCanvas;
         var myText = new fabric.Text(text, {
             //underline: true,
@@ -121,35 +142,68 @@ export default class CanvasFunctions{
             fill: "#000000"
             
         });
-        myText.id = `MyText${Date.now()}`;
+        myText.id = `Text${Date.now()}`;
         myText.name = "Text";
         
         innerCanvas.add(myText);
-        console.log(myText);
         this.getAllElements();
     }
     
-    addImage(e){
-        const imageUrl = URL.createObjectURL(e.target.files[0]);
+    addImage(e, previous){
         const outerThis = this;
+        if(previous){
+           // const imageUrl = URL.createObjectURL(previous);
+           // console.log("Image url is");
+           // console.log(imageUrl);
+            fabric.Image.fromURL(previous, function(img){
+                img.id = `DesignImage${Date.now()}/*/`;
+                img.name = "Image";
+                
+                img.scaleToWidth(300);
+                outerThis.appCanvas.add(img);
+                outerThis.getAllElements();
+            });
+            return
+        }
+
+        console.log("The image is");
+        console.log(e.target.files[0]);
+        const imageUrl = URL.createObjectURL(e.target.files[0]);
+   
         fabric.Image.fromURL(imageUrl, function(img){
-            img.id = `MyImage${Date.now()}`;
+            img.id = `DesignImage${Date.now()}/*/${imageUrl}`;
             img.name = "Image";
+
+            let myImage = img.toDataURL();
+            console.log("My ımage isTTT");
+            console.log(myImage);
+
             img.scaleToWidth(300);
             outerThis.appCanvas.add(img);
             outerThis.getAllElements();
         });
 
     }
-    addAlphaImage(e){
-        const outerReference = this;
-        fabric.Image.fromURL("https://img.freepik.com/premium-photo/woman-holding-barbell-shoulders-gym_651396-1604.jpg", function(img){
+
+
+    
+    addAlphaImage(e, previous){
+        const outerThis = this;
+        fabric.Image.fromURL(myImage, function(img){
             img.id = `AlphaImage${Date.now()}`;
             img.name = "AlphaImage";
             img.scaleToWidth(300);
-            outerReference.appCanvas.add(img);
-            outerReference.getAllElements();
+            outerThis.appCanvas.add(img);
+            outerThis.getAllElements();
         });
+        //const outerReference = this;
+        // fabric.Image.fromURL("https://img.freepik.com/premium-photo/woman-holding-barbell-shoulders-gym_651396-1604.jpg", function(img){
+        //     img.id = `AlphaImage${Date.now()}`;
+        //     img.name = "AlphaImage";
+        //     img.scaleToWidth(300);
+        //     outerReference.appCanvas.add(img);
+        //     outerReference.getAllElements();
+        // });
 
     }
 
@@ -259,14 +313,14 @@ export default class CanvasFunctions{
     getLayersData(elements){
         var layerElements = elements;
         var layerDepthOrders = {};
-        // let thumbnailImage =  this.appCanvas.toDataURL({
-        //     width: this.appCanvas.width,
-        //     height: this.appCanvas.height,
-        //     left: 0,
-        //     top: 0,
-        //     format: 'png',
-        // });
-        // thumbnailImage = thumbnailImage.split(';base64,')[1];
+        let thumbnailImage =  this.appCanvas.toDataURL({
+            width: this.appCanvas.width,
+            height: this.appCanvas.height,
+            left: 0,
+            top: 0,
+            format: 'png',
+        });
+        thumbnailImage = thumbnailImage.split(';base64,')[1];
         
         elements.forEach((element) => {
             layerDepthOrders[element.id] = element.getZIndex();
@@ -295,7 +349,6 @@ export default class CanvasFunctions{
                     format: 'png',
                 });
                 dataURL = dataURL.split(';base64,')[1];
-                console.log(dataURL);
                 const elementId = element.id;
              
                 const result = {
@@ -324,7 +377,7 @@ export default class CanvasFunctions{
             this.setZIndex( layerDepthOrders[element.id], element);
         });
 
-        return [layers, images, ];
+        return [layers, images, thumbnailImage];
         
     }
 
@@ -377,3 +430,4 @@ export default class CanvasFunctions{
         
     }
 }
+

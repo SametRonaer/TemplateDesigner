@@ -15,8 +15,7 @@ export default class CanvasEventsManager{
     }
 
     setAddedElement(obj){
-         console.log("Selection is");
-         console.log(obj);
+        
        }
 
     setEventFunctions(){

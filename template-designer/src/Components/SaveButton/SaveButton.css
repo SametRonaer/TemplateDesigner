@@ -1,0 +1,14 @@
+
+.SaveButton{
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    background-color: rgb(3, 184, 3);
+    padding: 5px 20px;
+    color: white;
+    border-radius: 10%;
+    font-size: large;
+    font-weight: 500;
+    user-select: none;
+}

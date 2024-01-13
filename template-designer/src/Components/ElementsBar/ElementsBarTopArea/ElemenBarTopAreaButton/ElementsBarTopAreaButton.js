@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
-import { elementsList, jsonOutput } from "../../../../Constants/appConstants";
+import { base64JsonOutput, elementsList, parametricJsonOutput} from "../../../../Constants/appConstants";
 import "./ElementsBarTopAreaButton.css";
 
-import { LuFileJson } from "react-icons/lu";
+import { LuCornerDownLeft, LuFileArchive, LuFileJson } from "react-icons/lu";
 import { BsListUl } from "react-icons/bs";
 
 import { layoutActions } from "../../../../store/layout-store";
+import { renderPreviousWork } from "../../../../HelperFunctions/CanvasRendererFromJson";
 
 function ElementsBarTopAreaButton(props){
     const mode = props.mode;
@@ -13,14 +14,23 @@ function ElementsBarTopAreaButton(props){
     let modeIcon;
     const iconColor = "gray";
    function onClickHandler(){
-       dispatch(layoutActions.setCurrentElementsBarMode(mode));    
+    if(mode == "renderJson"){
+        renderPreviousWork();
+    }else{
+        dispatch(layoutActions.setCurrentElementsBarMode(mode));    
+    }
    }
     
     function setModeConfig(){
         if(mode == elementsList){
             modeIcon = <BsListUl size={20} color= {iconColor} />
-        }else if(mode == jsonOutput){
+        }else if(mode == base64JsonOutput){
             modeIcon = <LuFileJson size={20} color= {iconColor}/>
+        }else if(mode == parametricJsonOutput){
+            modeIcon = <LuFileArchive size={20} color= {iconColor}/>
+        }
+        else if(mode ==  "renderJson"){
+            modeIcon = <LuCornerDownLeft size={20} color= {iconColor}/>
         }
     }
 
