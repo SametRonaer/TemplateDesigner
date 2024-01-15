@@ -126,6 +126,8 @@ function ParametricJsonOutputArea(){
         console.log(base64data);
     }});
 
+    console.log("Scale is");
+    //console.log(element.);
 
         const e = {
             type: element.type,
@@ -139,6 +141,8 @@ function ParametricJsonOutputArea(){
             width: element.width * element.scaleY,
             zIndex: element.getZIndex(),
             opacity: element.opacity,
+            scaleHeight: element.scaleToHeight,
+            scaleWidth: element.scaleToWidth,
             imageUrl:base64data
         };
         return e;

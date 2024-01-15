@@ -1,6 +1,7 @@
 import { fabric } from "fabric";
 import { elementsBarActions } from "../store/elements-bar-store";
 import myImage from "../Assets/myImage.png";
+import { image } from "../Constants/appConstants";
 
 
 
@@ -155,9 +156,9 @@ export default class CanvasFunctions{
            // const imageUrl = URL.createObjectURL(previous);
            // console.log("Image url is");
            // console.log(imageUrl);
-            fabric.Image.fromURL(previous, function(img){
-                img.id = `DesignImage${Date.now()}/*/`;
-                img.name = "Image";
+            fabric.Image.fromURL(previous.base64Image, function(img){
+                img.id = previous.id;
+                img.name = "DesignImage";
                 
                 img.scaleToWidth(300);
                 outerThis.appCanvas.add(img);
@@ -172,7 +173,7 @@ export default class CanvasFunctions{
    
         fabric.Image.fromURL(imageUrl, function(img){
             img.id = `DesignImage${Date.now()}/*/${imageUrl}`;
-            img.name = "Image";
+            img.name = "DesignImage";
 
             let myImage = img.toDataURL();
             console.log("My ımage isTTT");
@@ -189,6 +190,22 @@ export default class CanvasFunctions{
     
     addAlphaImage(e, previous){
         const outerThis = this;
+
+        if(previous){
+            fabric.Image.fromURL(myImage, function(img){
+                img.id = previous.id;
+                img.name = "AlphaImage";
+                img.opacity = previous.opacity;
+                img.top = previous.top;
+                img.left = previous.left;
+                img.scaleToHeight(previous.height);
+                img.scaleToWidth(previous.width);
+                outerThis.appCanvas.add(img);
+                outerThis.getAllElements();
+            });
+            return
+        }
+
         fabric.Image.fromURL(myImage, function(img){
             img.id = `AlphaImage${Date.now()}`;
             img.name = "AlphaImage";
