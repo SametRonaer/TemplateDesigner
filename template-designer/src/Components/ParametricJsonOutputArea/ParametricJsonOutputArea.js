@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import "./ParametricJsonOutputArea.css";
 import CanvasFunctions from "../../HelperFunctions/CanvasFunctions";
-import { useState } from "react";
-
 
 var generatedParametricJsonOutput;
 
@@ -126,8 +124,6 @@ function ParametricJsonOutputArea(){
         console.log(base64data);
     }});
 
-    console.log("Scale is");
-    //console.log(element.);
 
         const e = {
             type: element.type,
@@ -143,6 +139,7 @@ function ParametricJsonOutputArea(){
             opacity: element.opacity,
             scaleHeight: element.scaleToHeight,
             scaleWidth: element.scaleToWidth,
+            //imageUrl:element.toDataURL()
             imageUrl:base64data
         };
         return e;
@@ -155,8 +152,8 @@ function ParametricJsonOutputArea(){
             top: element.top,
             angle: element.angle,
             left: element.left,
-            height: element.height * element.scaleX,
-            width: element.width * element.scaleY,
+            height: element.height * element.scaleY,
+            width: element.width * element.scaleX,
             radius: element.radius,
             zIndex: element.getZIndex(),
             color: element.fill,

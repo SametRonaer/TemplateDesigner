@@ -115,8 +115,13 @@ const dummyWork =
 
 
 export function renderPreviousWork(objc){
-    const obj = JSON.parse(dummyWork);
+    objc = objc.replace(/(\r\n|\n|\r)/gm, "");
+    const obj = JSON.parse(objc);
+    
+    console.log("obj is");
+    console.log(obj);
     const elementList = obj.tree;
+
     elementList.forEach((element) => {
         console.log(element.type);   
         if(element.id.includes("SolidRect")){

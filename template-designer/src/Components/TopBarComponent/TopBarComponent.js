@@ -2,10 +2,10 @@ import SaveButton from "../SaveButton/SaveButton";
 import SettingsBar from "../SettingsBar/SettingsBar";
 import "./TopBarComponent.css";
 
-function TopBarComponent(){
+function TopBarComponent(props){
     return <div className="TopBarComponent">
         <SettingsBar/>
-        <SaveButton/>
+        <SaveButton designCode = {props.designCode}/>
         </div>;
 }
 

@@ -4,14 +4,21 @@ import "./SaveButton.css"
 import { base64JsonOutput, parametricJsonOutput } from "../../Constants/appConstants";
 import { layoutActions } from "../../store/layout-store";
 import { getBase64Output } from "../Base64JsonOutputArea/Base64JsonOutputArea";
-import { sendJsonTemplate } from "../../Services/apiService";
+import { getJsonTemplate, sendJsonTemplate } from "../../Services/apiService";
 
 
-function SaveButton(){
+function SaveButton(props){
     const dispatch = useDispatch();
-    return <div className="SaveButton"  onClick={onClicHandler}>
+
+    var designCode;
+
+    if(props.designCode){
+        designCode = props.designCode;
+    }
+
+    return designCode ? <div className="SaveButton"  onClick={onClicHandler}>
         Save
-    </div>
+    </div> : <div></div>
 
     function onClicHandler(){
         setTimeout(getParametricJson, 500);
@@ -30,10 +37,7 @@ function SaveButton(){
     function save(){
         var webDesignJson = getGeneratedParametricJsonOutput();
         var mobileDesignJson = getBase64Output();
-        //console.log(webDesignJson);
-        //console.log("---------------------------");
-        //console.log(mobileDesignJson);
-        sendJsonTemplate(webDesignJson, mobileDesignJson);
+        sendJsonTemplate(webDesignJson, mobileDesignJson, designCode);
     }
 
 

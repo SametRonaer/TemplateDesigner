@@ -9,12 +9,14 @@ import {useSearchParams } from 'react-router-dom';
 function DesignPage(){
 
     const [searchParams, setSearchParams] = useSearchParams();
-    let query = searchParams.get("myKey");
-    console.log(query)
-    getJsonTemplate("530068");
+    let query = searchParams.get("paylasimKodu");
+    if(query){
+        getJsonTemplate(query);
+    }
+    
 
     return <div className="DesignPage">
-        <TopBarComponent/>
+        <TopBarComponent designCode={query}/>
         <ToolBarComponent/>
         <CanvasComponent/>
         <ElementsBar/>
