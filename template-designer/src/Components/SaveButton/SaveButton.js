@@ -4,7 +4,8 @@ import "./SaveButton.css"
 import { base64JsonOutput, parametricJsonOutput } from "../../Constants/appConstants";
 import { layoutActions } from "../../store/layout-store";
 import { getBase64Output } from "../Base64JsonOutputArea/Base64JsonOutputArea";
-import { getJsonTemplate, sendJsonTemplate } from "../../Services/apiService";
+import { sendJsonTemplate } from "../../Services/apiService";
+
 
 
 function SaveButton(props){

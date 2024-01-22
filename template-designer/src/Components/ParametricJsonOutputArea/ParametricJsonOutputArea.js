@@ -37,7 +37,7 @@ function ParametricJsonOutputArea(){
         currentOutput = addTemplateConfigToOutput(jsonElementList);
         currentOutput = formatOutput(currentOutput);
         generatedParametricJsonOutput = currentOutput
-        setImagesBase64Data();
+        //setImagesBase64Data();
        return currentOutput;
     }
 
@@ -70,59 +70,9 @@ function ParametricJsonOutputArea(){
     }
 
 
-    function setImagesBase64Data(){
-        for(let i = 0; i<imageIndexes.length; i++){
-            let element = allElements[imageIndexes[i]]
-            var value = element.id.split("/*/blob:")[1]
-            console.log("Value isjj");
-            console.log(value);
-            var base64data;
-            fetch(value)
-          .then(res => res.blob()) // Gets the response and returns it as a blob
-          .then(blob => {
-            // Here's where you get access to the blob
-            // And you can use it for whatever you want
-            // Like calling ref().put(blob)
-            console.log("Blob is");
-            console.log(blob);
-            
-            var reader = new FileReader();
-            reader.readAsDataURL(blob); 
-            reader.onloadend = function() {
-             base64data = reader.result;                
-            console.log(base64data);
-            jsonElementList[imageIndexes[i]]["imageBase64"] = base64data 
-            let currentOutput = addTemplateConfigToOutput(jsonElementList);
-            currentOutput = formatOutput(currentOutput);
-            generatedParametricJsonOutput = currentOutput;
-        }});
-        }
-      
-    }
 
     function getImageJsonType(element){
 
-        
-        var value = element.id.split("/*/blob:")[1]
-        console.log("Value is");
-        console.log(element);
-        console.log(value);
-        var base64data;
-        fetch(value)
-      .then(res => res.blob()) // Gets the response and returns it as a blob
-      .then(blob => {
-        // Here's where you get access to the blob
-        // And you can use it for whatever you want
-        // Like calling ref().put(blob)
-        console.log("Blob is");
-        console.log(blob);
-        
-        var reader = new FileReader();
-        reader.readAsDataURL(blob); 
-        reader.onloadend = function() {
-         base64data = reader.result;                
-        console.log(base64data);
-    }});
 
 
         const e = {
@@ -139,8 +89,8 @@ function ParametricJsonOutputArea(){
             opacity: element.opacity,
             scaleHeight: element.scaleToHeight,
             scaleWidth: element.scaleToWidth,
-            //imageUrl:element.toDataURL()
-            imageUrl:base64data
+            imageUrl:element.toDataURL(),
+            depth: element.getZIndex()
         };
         return e;
     }
@@ -158,8 +108,9 @@ function ParametricJsonOutputArea(){
             zIndex: element.getZIndex(),
             color: element.fill,
             strokeWidth: element.strokeWidth,
-            strokeColor: element.strokeColor,
+            strokeColor: element.stroke,
             opacity: element.opacity,
+            depth: element.getZIndex(),
         };
         return e;
     }
@@ -175,9 +126,10 @@ function ParametricJsonOutputArea(){
             left: element.left,
             height: element.height,
             width: element.width,
-            zIndex: element.getZIndex(),
+            depth: element.getZIndex(),
             color: element.fill,
             opacity: element.opacity,
+            fontSize: element.fontSize
         };
         return e;
     }

@@ -112,18 +112,27 @@ const dummyWork =
 `;
 
 
-
+const depthSortFn = (a, b) => {
+    if (a.depth < b.depth) {
+      return -1;
+    } else if (a.depth === b.depth) {
+      return 0;
+    } else {
+      return 1;
+    }
+  };
 
 export function renderPreviousWork(objc){
     objc = objc.replace(/(\r\n|\n|\r)/gm, "");
     const obj = JSON.parse(objc);
-    
-    console.log("obj is");
-    console.log(obj);
     const elementList = obj.tree;
+    const canvasColor = obj.backgroundColor;
+    let orederedList = elementList.sort(depthSortFn);
+    console.log("Canvas color");
+    console.log(canvasColor);
+    setCanvasColor(canvasColor);
 
-    elementList.forEach((element) => {
-        console.log(element.type);   
+    orederedList.forEach((element) => {
         if(element.id.includes("SolidRect")){
             renderSolidRect(element);
         }   
@@ -148,6 +157,11 @@ export function renderPreviousWork(objc){
     })
 }
 
+function setCanvasColor(color){
+    const functions = new CanvasFunctions();
+    //functions.setCanvasColor("#ba1717");
+    functions.setCanvasColor(color);
+}
 
 function renderAlphaImage(element){
     const functions = new CanvasFunctions();
@@ -155,27 +169,9 @@ function renderAlphaImage(element){
 }
 
 function renderDesignImage(element){
-    //var value = element.id.split("/*/blob:")[1]
 
-//     fetch(value)
-//     .then(res => res.blob())
-//     .then(blob => {
-//     console.log("My Blob is");
-//     console.log(blob);
-// });
 const functions = new CanvasFunctions();
 functions.addImage("_", element);
-
-   
-    // Here, I use it to make an image appear on the page
-   // let objectURL = URL.createObjectURL(blob);
-    //let myImage = new Image();
-    //myImage.src = objectURL;
-    //document.getElementById('myImg').appendChild(myImage)
-
-    
-    
-
 }
 
 function renderSolidRect(element){
@@ -188,8 +184,10 @@ function renderSolidRect(element){
         fill :  element.color,
         strokeColor: element.strokeColor,
         strokeWidth: element.strokeWidth,
-        opacity: element.opaciy
+        opacity: element.opacity,
+        angle: element.angle
     });
+    
     rect.id =  element.id; //`MyRect${Date.now()}`;
     rect.name = "Rect";
     functions.addSolidRect("black", rect);
@@ -204,8 +202,9 @@ function renderBorderedRect(element){
         height : element.height,
         fill :  element.color,
         strokeWidth: element.strokeWidth,
-        stroke: "#000000",
-        opacity: element.opacity
+        stroke: element.strokeColor,
+        opacity: element.opacity,
+        angle: element.angle
     });
     rect.id =  element.id;
     rect.name = "Rect";
@@ -256,8 +255,11 @@ function renderText(element){
         width : element.width,
         height : element.height,
         fill: element.color,
-        opacity: element.opacity
+        opacity: element.opacity,
+        fontSize: element.fontSize,
+        angle: element.angle
     });
+    
     text.id = element.id;
     text.name = "Text"
     functions.addText('#ff55ff00',text);

@@ -105,6 +105,7 @@ export default class CanvasFunctions{
             radius: 50,
             fill: '#f4f5ff',
         });
+        
         circle.id = `SolidCircle${Date.now()}`;
         circle.name = "Circle";
         this.appCanvas.add(circle);
@@ -153,32 +154,25 @@ export default class CanvasFunctions{
     addImage(e, previous){
         const outerThis = this;
         if(previous){
-           // const imageUrl = URL.createObjectURL(previous);
-           // console.log("Image url is");
-           // console.log(imageUrl);
-            fabric.Image.fromURL(previous.base64Image, function(img){
+            fabric.Image.fromURL(previous.imageUrl, function(img){
                 img.id = previous.id;
                 img.name = "DesignImage";
-                
-                img.scaleToWidth(300);
+                img.opacity = previous.opacity;
+                img.top = previous.top;
+                img.left = previous.left;
+                img.scaleToHeight(previous.height);
+                img.scaleToWidth(previous.width);
                 outerThis.appCanvas.add(img);
                 outerThis.getAllElements();
             });
             return
         }
 
-        console.log("The image is");
-        console.log(e.target.files[0]);
         const imageUrl = URL.createObjectURL(e.target.files[0]);
    
         fabric.Image.fromURL(imageUrl, function(img){
-            img.id = `DesignImage${Date.now()}/*/${imageUrl}`;
+            img.id = `DesignImage${Date.now()}`;
             img.name = "DesignImage";
-
-            let myImage = img.toDataURL();
-            console.log("My ımage isTTT");
-            console.log(myImage);
-
             img.scaleToWidth(300);
             outerThis.appCanvas.add(img);
             outerThis.getAllElements();
@@ -190,9 +184,10 @@ export default class CanvasFunctions{
     
     addAlphaImage(e, previous){
         const outerThis = this;
-
+        console.log("Previous is");
+        console.log(previous);
         if(previous){
-            fabric.Image.fromURL(myImage, function(img){
+            fabric.Image.fromURL(previous.imageUrl, function(img){
                 img.id = previous.id;
                 img.name = "AlphaImage";
                 img.opacity = previous.opacity;
@@ -213,15 +208,7 @@ export default class CanvasFunctions{
             outerThis.appCanvas.add(img);
             outerThis.getAllElements();
         });
-        //const outerReference = this;
-        // fabric.Image.fromURL("https://img.freepik.com/premium-photo/woman-holding-barbell-shoulders-gym_651396-1604.jpg", function(img){
-        //     img.id = `AlphaImage${Date.now()}`;
-        //     img.name = "AlphaImage";
-        //     img.scaleToWidth(300);
-        //     outerReference.appCanvas.add(img);
-        //     outerReference.getAllElements();
-        // });
-
+      
     }
 
     
@@ -233,8 +220,6 @@ export default class CanvasFunctions{
         const selectedObj = this.getElementById(id);
         this.appCanvas.setActiveObject(selectedObj);
         this.appCanvas.requestRenderAll()
-        //selectedObj.set('active',true); 
-        //this.appCanvas.setActiveObject(selectedObj);
     }
 
     renderAll(){
