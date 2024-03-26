@@ -202,7 +202,7 @@ export default class CanvasFunctions{
         }
 
         fabric.Image.fromURL(myImage, function(img){
-            img.id = `AlphaImage${Date.now()}`;
+            img.id = `AlphaImage${Date.now()}`;                               
             img.name = "AlphaImage";
             img.scaleToWidth(300);
             outerThis.appCanvas.add(img);

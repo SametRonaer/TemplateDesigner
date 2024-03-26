@@ -159,7 +159,6 @@ export function renderPreviousWork(objc){
 
 function setCanvasColor(color){
     const functions = new CanvasFunctions();
-    //functions.setCanvasColor("#ba1717");
     functions.setCanvasColor(color);
 }
 

@@ -12,3 +12,16 @@
     font-weight: 500;
     user-select: none;
 }
+.SaveButtonOff{
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    background-color: rgb(190, 210, 190);
+    padding: 5px 20px;
+    color: white;
+    border-radius: 10%;
+    font-size: large;
+    font-weight: 500;
+    user-select: none;
+}

@@ -6,9 +6,9 @@ const apiKey = "ry6AZJ3jd7aTW42n";
 
 
 
-async function sendJsonTemplate(parametric, base64, designCode){
+async function sendJsonTemplate(parametric, base64, designCode, onFinished){
     const url =  `${baseUrl}/paylasimKayitPanel.php?ApiKey=${apiKey}&paylasimKodu=${designCode}`;
-   
+   designCode = 345678
 
     var formData = new FormData();
     var trimmedBase64 = base64.replace(/(\r\n|\n|\r)/gm, "");
@@ -24,9 +24,11 @@ async function sendJsonTemplate(parametric, base64, designCode){
     })
       .then(function (response) {
         console.log(response);
+        onFinished();
       })
       .catch(function (response) {
         console.log(response);
+        onFinished();
       })
 
  }

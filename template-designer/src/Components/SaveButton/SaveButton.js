@@ -1,27 +1,32 @@
 import { useDispatch } from "react-redux";
-import { generatedParametricJsonOutput, getGeneratedParametricJsonOutput } from "../ParametricJsonOutputArea/ParametricJsonOutputArea"
+import { getGeneratedParametricJsonOutput } from "../ParametricJsonOutputArea/ParametricJsonOutputArea"
 import "./SaveButton.css"
 import { base64JsonOutput, parametricJsonOutput } from "../../Constants/appConstants";
 import { layoutActions } from "../../store/layout-store";
 import { getBase64Output } from "../Base64JsonOutputArea/Base64JsonOutputArea";
 import { sendJsonTemplate } from "../../Services/apiService";
+import { useState } from "react";
 
 
 
 function SaveButton(props){
     const dispatch = useDispatch();
-
+   const [buttonState, setButtonState] = useState(false);
     var designCode;
 
     if(props.designCode){
         designCode = props.designCode;
     }
 
-    return designCode ? <div className="SaveButton"  onClick={onClicHandler}>
+    return designCode ? <div className= {!buttonState ? "SaveButton" : "SaveButtonOff"}  onClick={onClicHandler}>
         Save
     </div> : <div></div>
 
     function onClicHandler(){
+        if(buttonState){
+            return;
+        }
+        setButtonState(true);
         setTimeout(getParametricJson, 500);
     }
 
@@ -38,9 +43,13 @@ function SaveButton(props){
     function save(){
         var webDesignJson = getGeneratedParametricJsonOutput();
         var mobileDesignJson = getBase64Output();
-        sendJsonTemplate(webDesignJson, mobileDesignJson, designCode);
+        sendJsonTemplate(webDesignJson, mobileDesignJson, designCode, onFinished);
     }
 
+    function onFinished(){
+        console.log("Finished");
+        setButtonState(false);
+    }
 
 }
 

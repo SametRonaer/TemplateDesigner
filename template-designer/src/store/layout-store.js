@@ -6,7 +6,7 @@ const layoutSlice = createSlice(
  {  
     name: 'layout',
     initialState: {
-        currentElementsBarMode: elementsList,
+        currentElementsBarMode: elementsList
     },
     reducers: {
         setCurrentElementsBarMode(state, action) {
